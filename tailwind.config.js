@@ -12,6 +12,46 @@ export default {
 				tertiary: '#0d1321',
 				quaternary: '#ffb703',
 			},
+			keyframes: {
+				slide_out: {
+					'0%': {
+						left: '0',
+					},
+					'100%': {
+						left: '-100%',
+					},
+				},
+				slide_back_out: {
+					'0%': {
+						left: '100%',
+					},
+					'100%': {
+						left: '0',
+					},
+				},
+				slide_in: {
+					'0%': {
+						left: '100%',
+					},
+					'100%': {
+						left: '0',
+					},
+				},
+				slide_back_in: {
+					'0%': {
+						left: '-100%',
+					},
+					'100%': {
+						left: '0',
+					},
+				},
+			},
+			animation: {
+				slide_out: 'slide_out 1s ease-in-out 1 forwards',
+				slide_back_out: 'slide_back_out 1s ease-in-out 1 forwards',
+				slide_in: 'slide_in 1s ease-in-out 1 forwards',
+				slide_back_in: 'slide_back_in 1s ease-in-out 1 forwards',
+			},
 		},
 	},
 	plugins: [],
