@@ -18,22 +18,21 @@ function App() {
 	}
 
 	function toggleAnimation() {
-		requestAnimationFrame(() => {
-			const hero = document.querySelector('#hero');
-			const more = document.querySelector('#more');
+		const hero = document.querySelector('#hero');
+		const more = document.querySelector('#more');
 
-			hero?.classList.toggle('animate-slide_out');
-			more?.classList.toggle('animate-slide_in');
-		});
+		hero?.classList.add('animate-slide_out');
+		more?.classList.add('animate-slide_in');
 	}
-	function toggleSecondAnimation() {
-		requestAnimationFrame(() => {
-			const hero = document.querySelector('#hero');
-			const more = document.querySelector('#more');
 
-			hero?.classList.toggle('animate-slide_back_in');
-			more?.classList.toggle('animate-slide_back_out');
-		});
+	function toggleSecondAnimation() {
+		const hero = document.querySelector('#hero');
+		const more = document.querySelector('#more');
+
+		hero?.classList.remove('animate-slide_out');
+		more?.classList.remove('animate-slide_in');
+		hero?.classList.add('animate-slide_back_in');
+		more?.classList.add('animate-slide_back_out');
 	}
 
 	return (
