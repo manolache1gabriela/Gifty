@@ -2,6 +2,7 @@ import Logo from '../assets/logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
 	showMenu: boolean;
@@ -19,11 +20,13 @@ export default function Navbar({
 	return (
 		<div className='w-full h-28 shadow-[inset_0px_-10px_20px_0px_#00000024] flex items-center justify-center font-poppins'>
 			<div className='h-full w-[80%] flex items-center justify-between'>
-				<img
-					className='h-1/2'
-					src={Logo}
-					alt='gifty logo'
-				/>
+				<Link to='/'>
+					<img
+						className='w-2/3 md:w-48'
+						src={Logo}
+						alt='gifty logo'
+					/>
+				</Link>
 				<div>
 					<div className='hidden lg:flex'>
 						{!signedIn && (

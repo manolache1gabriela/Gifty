@@ -4,6 +4,8 @@ import Menu from './Menu';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import More from './More';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Wishlist from './Wishlist';
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -36,7 +38,7 @@ function App() {
 	}
 
 	return (
-		<>
+		<Router>
 			<Navbar
 				toggleMenu={toggleMenu}
 				showMenu={showMenu}
@@ -49,12 +51,23 @@ function App() {
 					toggleSigned={toggleSigned}
 				/>
 			)}
-			<div className='w-full relative h-[84vh] xl:h-[88.4vh] bg-[url("./assets/splash.jpg")] bg-cover flex'>
-				<Hero toggleAnimation={toggleAnimation} />
-				<More toggleSecondAnimation={toggleSecondAnimation} />
-			</div>
+			<Routes>
+				<Route
+					path='/'
+					element={
+						<div className='w-full relative h-[84vh] xl:h-[88.4vh] bg-[url("./assets/splash.jpg")] bg-cover flex'>
+							<Hero toggleAnimation={toggleAnimation} />
+							<More toggleSecondAnimation={toggleSecondAnimation} />
+						</div>
+					}
+				/>
+				<Route
+					path='/wishlist'
+					element={<Wishlist />}
+				/>
+			</Routes>
 			<Footer />
-		</>
+		</Router>
 	);
 }
 

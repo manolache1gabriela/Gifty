@@ -1,5 +1,6 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 interface HomeProps {
 	toggleAnimation: () => void;
@@ -25,9 +26,11 @@ export default function Hero({ toggleAnimation }: HomeProps) {
 				</h3>
 			</div>
 			<div className='w-[90%] py-4 md:py-6 md:w-2/3 lg:w-1/2 flex flex-col md:flex-row justify-center items-center gap-6'>
-				<button className='p-6 w-48 flex items-center justify-center h-12 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary text-primary'>
-					Make a wish
-				</button>
+				<Link to='/wishlist'>
+					<button className='p-6 w-48 flex items-center justify-center h-12 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary text-primary'>
+						Make a wish
+					</button>
+				</Link>
 				<button
 					onClick={toggleAnimation}
 					className='w-48 flex items-center justify-center gap-2 text-tertiary hover:text-secondary'
