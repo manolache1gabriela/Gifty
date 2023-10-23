@@ -6,6 +6,9 @@ import Footer from './Footer';
 import More from './More';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Wishlist from './Wishlist';
+import SignIn from './SignIn';
+import Forgot from './Forgot';
+import Registration from './Registration';
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -64,6 +67,18 @@ function App() {
 				<Route
 					path='/wishlist'
 					element={<Wishlist />}
+				/>
+				<Route
+					path='/sign-in'
+					element={<SignIn />}
+				/>
+				<Route
+					path='/forgot'
+					element={<Forgot />}
+				/>
+				<Route
+					path='/registration'
+					element={<Registration />}
 				/>
 			</Routes>
 			<Footer />

@@ -30,21 +30,25 @@ export default function Navbar({
 				<div>
 					<div className='hidden lg:flex'>
 						{!signedIn && (
-							<button
-								className='p-6 flex text-primary items-center justify-center h-12 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary'
-								onClick={toggleSigned}
-							>
-								Sign in
-							</button>
-						)}
-						{signedIn && (
-							<div className='flex gap-8 justify-between item'>
+							<Link to='/sign-in'>
 								<button
 									className='p-6 flex text-primary items-center justify-center h-12 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary'
 									onClick={toggleSigned}
 								>
-									Logout
+									Sign in
 								</button>
+							</Link>
+						)}
+						{signedIn && (
+							<div className='flex gap-8 justify-between item'>
+								<Link to='/'>
+									<button
+										className='p-6 flex text-primary items-center justify-center h-12 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary'
+										onClick={toggleSigned}
+									>
+										Logout
+									</button>
+								</Link>
 								<button className='p-6 flex items-center justify-center h-12 gap-2 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary text-primary'>
 									Your Account <FontAwesomeIcon icon={faUser} />
 								</button>
