@@ -9,6 +9,7 @@ import Wishlist from './Wishlist';
 import SignIn from './SignIn';
 import Forgot from './Forgot';
 import Registration from './Registration';
+import NotFound from './NotFound';
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -79,6 +80,10 @@ function App() {
 				<Route
 					path='/registration'
 					element={<Registration />}
+				/>
+				<Route
+					path='*'
+					element={<NotFound />}
 				/>
 			</Routes>
 			<Footer />
