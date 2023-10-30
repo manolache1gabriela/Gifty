@@ -10,6 +10,7 @@ import SignIn from './SignIn';
 import Forgot from './Forgot';
 import Registration from './Registration';
 import NotFound from './NotFound';
+import Account from './Account';
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -80,6 +81,10 @@ function App() {
 				<Route
 					path='/registration'
 					element={<Registration />}
+				/>
+				<Route
+					path='/account'
+					element={<Account />}
 				/>
 				<Route
 					path='*'

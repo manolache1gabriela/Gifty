@@ -6,7 +6,7 @@ import { faCirclePlus, faPencil } from '@fortawesome/free-solid-svg-icons';
 export default function Wishes() {
 	const filters: string[] = ['filter 1', 'filter 2', 'filter 3', 'filter 4'];
 
-	const [user, setUser] = useState(true);
+	const [user, setUser] = useState(false);
 
 	return (
 		<div className='w-[90%] overflow-hidden flex justify-center flex-col gap-8 items-center font-poppins'>
@@ -41,6 +41,25 @@ export default function Wishes() {
 						{filter}
 					</button>
 				))}
+			</div>
+			<div className='flex w-full justify-start '>
+				<form method='get'>
+					<select
+						className='border-2 border-primary rounded-lg p-1 text-center cursor-pointer text-sm text-primary font-semibold'
+						name='order'
+						id='order'
+					>
+						<option value='alphabetical'>Alphabetical</option>
+						<option value='rising'>Rising price</option>
+						<option value='declining'>Declining price</option>
+						<option
+							value='new'
+							selected
+						>
+							The newest
+						</option>
+					</select>
+				</form>
 			</div>
 			<div className='flex flex-col md:flex-row justify-between gap-8 flex-wrap items-center'>
 				<Wish />

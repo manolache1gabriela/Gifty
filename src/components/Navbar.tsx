@@ -49,9 +49,11 @@ export default function Navbar({
 										Logout
 									</button>
 								</Link>
-								<button className='p-6 flex items-center justify-center h-12 gap-2 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary text-primary'>
-									Your Account <FontAwesomeIcon icon={faUser} />
-								</button>
+								<Link to='/account'>
+									<button className='p-6 flex items-center justify-center h-12 gap-2 hover:bg-primary hover:text-white rounded-full border-2 text-lg border-primary text-primary'>
+										Your Account <FontAwesomeIcon icon={faUser} />
+									</button>
+								</Link>
 							</div>
 						)}
 					</div>
