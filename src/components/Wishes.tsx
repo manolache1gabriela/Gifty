@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Wish from './Wish';
+import AddWish from './AddWish';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 export default function Wishes() {
 	const filters: string[] = ['filter 1', 'filter 2', 'filter 3', 'filter 4'];
 
-	const [user, setUser] = useState(false);
+	const [user, setUser] = useState(true);
+	const [addWish, setAddWish] = useState(true);
 
 	return (
 		<div className='w-[90%] overflow-hidden flex justify-center flex-col gap-8 items-center font-poppins'>
@@ -27,17 +29,23 @@ export default function Wishes() {
 						<FontAwesomeIcon
 							className='hover:text-primary'
 							icon={faCirclePlus}
+							onClick={() => {
+								setAddWish(true);
+							}}
 						/>
-						<FontAwesomeIcon
-							className='hover:text-primary'
-							icon={faPencil}
+						<AddWish
+							addWish={addWish}
+							setAddWish={setAddWish}
 						/>
 					</div>
 				)}
 			</div>
 			<div className='flex w-full justify-start overflow-x-scroll mx-24 no-scrollbar gap-8 mt-8 py-4 pl-2'>
 				{filters.map((filter) => (
-					<button className='bg-secondary min-w-fit shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] px-4 py-1 rounded-full text-white hover:bg-primary'>
+					<button
+						className='bg-secondary min-w-fit shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] px-4 py-1 rounded-full text-white hover:bg-primary'
+						key={filter}
+					>
 						{filter}
 					</button>
 				))}
@@ -61,10 +69,10 @@ export default function Wishes() {
 					</select>
 				</form>
 			</div>
-			<div className='flex flex-col md:flex-row justify-between gap-8 flex-wrap items-center'>
-				<Wish />
-				<Wish />
-				<Wish />
+			<div className='w-full flex flex-col md:flex-row justify-between gap-8 flex-wrap items-center'>
+				<Wish user={user} />
+				<Wish user={user} />
+				<Wish user={user} />
 			</div>
 		</div>
 	);

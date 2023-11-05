@@ -11,6 +11,7 @@ import Forgot from './Forgot';
 import Registration from './Registration';
 import NotFound from './NotFound';
 import Account from './Account';
+import NewPassword from './NewPassword';
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -85,6 +86,10 @@ function App() {
 				<Route
 					path='/account'
 					element={<Account />}
+				/>
+				<Route
+					path='/new_password'
+					element={<NewPassword />}
 				/>
 				<Route
 					path='*'
