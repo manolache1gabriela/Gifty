@@ -19,11 +19,14 @@ export default function Wish({ user }: User) {
 					return <div>Hello</div>;
 				}
 				return;
-			}}
-		>
+			}}>
 			<div className='w-full md:w-1/3 h-36 rounded-3xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] bg-[url("https://shorturl.at/rxyS1")] bg-cover bg-center' />
 			<div className='md:w-[45%] flex flex-col justify-center items-center md:text-left md:items-start gap-2 text-center'>
 				<p className='text-2xl'>Product Name</p>
+				<div className='px-2 md:px-0 text-sm font-semibold text-primary w-full flex justify-between items-center'>
+					<span>Price: 200 RON</span>
+					<span>Quantity: 2</span>
+				</div>
 				<p className='text-primary text-base'>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
 					eligendi delectus suscipit, natus consequatur quos atque.
@@ -33,14 +36,14 @@ export default function Wish({ user }: User) {
 				<div className='w-10 h-10  rounded-full border-2 border-primary bg-[url("./src/assets/logo.svg")] bg-cover bg-center' />
 				{isFavorite && (
 					<FontAwesomeIcon
-						className='mb-6'
+						className='md:mb-6'
 						size='xl'
 						icon={faStar}
 					/>
 				)}
 				{user && (
 					<FontAwesomeIcon
-						className='hover:text-primary mb-6'
+						className='hover:text-primary md:mb-6'
 						size='lg'
 						icon={faPencil}
 					/>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Wish from './Wish';
-import AddWish from './AddWish';
+import AddWishModal from './AddWishModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +8,7 @@ export default function Wishes() {
 	const filters: string[] = ['filter 1', 'filter 2', 'filter 3', 'filter 4'];
 
 	const [user, setUser] = useState(true);
-	const [addWish, setAddWish] = useState(true);
+	const [showAddWishModal, setShowAddWishModal] = useState(false);
 
 	return (
 		<div className='w-[90%] overflow-hidden flex justify-center flex-col gap-8 items-center font-poppins'>
@@ -27,15 +27,15 @@ export default function Wishes() {
 				{user && (
 					<div className='flex gap-4 text-secondary text-3xl lg:text-4xl'>
 						<FontAwesomeIcon
-							className='hover:text-primary'
+							className='hover:text-primary cursor-pointer'
 							icon={faCirclePlus}
 							onClick={() => {
-								setAddWish(true);
+								setShowAddWishModal(true);
 							}}
 						/>
-						<AddWish
-							addWish={addWish}
-							setAddWish={setAddWish}
+						<AddWishModal
+							showAddWishModal={showAddWishModal}
+							setShowAddWishModal={setShowAddWishModal}
 						/>
 					</div>
 				)}
