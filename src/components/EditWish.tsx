@@ -1,19 +1,18 @@
-import { Fragment, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-interface AddWishModal {
-	showAddWishModal: boolean;
-	setShowAddWishModal: (() => boolean) | Dispatch<SetStateAction<boolean>>;
+import { Dispatch, Fragment, SetStateAction } from "react";
+
+interface EditWish {
+	showEdit: boolean;
+	setShowEdit: (() => boolean) | Dispatch<SetStateAction<boolean>>;
 }
-export default function AddWishModal({
-	showAddWishModal,
-	setShowAddWishModal,
-}: AddWishModal) {
+
+export default function EditWish({ showEdit, setShowEdit }: EditWish) {
 	return (
-		<Transition.Root show={showAddWishModal} as={Fragment}>
+		<Transition.Root show={showEdit} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10 font-poppins"
-				onClose={setShowAddWishModal}
+				onClose={setShowEdit}
 			>
 				<Transition.Child
 					as={Fragment}
@@ -69,6 +68,7 @@ export default function AddWishModal({
 																id="product-name"
 																name="product-name"
 																type="text"
+																placeholder="This Product"
 																required
 																className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
 															/>
@@ -106,7 +106,7 @@ export default function AddWishModal({
 																	name="quantity"
 																	type="number"
 																	min={0}
-																	placeholder="1"
+																	placeholder="2"
 																	className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
 																/>
 															</div>
@@ -138,7 +138,7 @@ export default function AddWishModal({
 														</label>
 														<div className="mt-2 w-full">
 															<textarea
-																placeholder="Add at least a link to the object so your friends can find it easier."
+																placeholder="This link"
 																rows={4}
 																cols={50}
 																id="description"
@@ -153,6 +153,7 @@ export default function AddWishModal({
 															id="favorite"
 															name="favorite"
 															type="checkbox"
+															checked
 															className="checkbox-round"
 														/>
 														<label
@@ -170,7 +171,7 @@ export default function AddWishModal({
 														/>
 														<input
 															type="submit"
-															value="Add wish"
+															value="Edit wish"
 															className="mt-3 text-secondary inline-flex w-1/2 justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-green-500 hover:text-white sm:mt-0 sm:w-auto"
 														/>
 													</div>
@@ -183,7 +184,7 @@ export default function AddWishModal({
 									<button
 										type="button"
 										className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-secondary hover:text-white sm:mt-0 sm:w-auto"
-										onClick={() => setShowAddWishModal(false)}
+										onClick={() => setShowEdit(!showEdit)}
 									>
 										Cancel
 									</button>
