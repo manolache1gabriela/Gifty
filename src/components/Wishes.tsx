@@ -58,10 +58,9 @@ export default function Wishes() {
 						className="border-2 border-primary rounded-lg p-1 text-center cursor-pointer text-sm text-primary font-semibold"
 						name="order"
 						id="order"
+						defaultValue="The newest"
 					>
-						<option value="new" selected>
-							The newest
-						</option>
+						<option value="new">The newest</option>
 						<option value="alphabetical">Alphabetical</option>
 						<option value="rising">Rising price</option>
 						<option value="declining">Declining price</option>
@@ -69,11 +68,9 @@ export default function Wishes() {
 				</form>
 			</div>
 			<div className="w-full flex flex-col md:flex-row justify-between gap-8 flex-wrap items-center">
-				{Array(4)
-					.fill(null)
-					.map((i) => (
-						<Wish user={user} setShowEdit={setShowEdit} key={i} />
-					))}
+				{filters.map((i) => (
+					<Wish user={user} setShowEdit={setShowEdit} key={i} />
+				))}
 				{showEdit && <EditWish showEdit={showEdit} setShowEdit={setShowEdit} />}
 			</div>
 		</div>
