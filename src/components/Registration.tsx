@@ -1,5 +1,6 @@
 // import { ReactNode } from 'react';
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function Registration() {
   interface RegistrationInput {
     label: string;
@@ -16,6 +17,8 @@ export default function Registration() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
+  const navigate = useNavigate();
   // const day: ReactNode[] = [];
   // const month: ReactNode[] = [];
   // const year: ReactNode[] = [];
@@ -96,6 +99,11 @@ export default function Registration() {
         accept: 'application/json',
       },
     });
+    response = await response.json();
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    localStorage.setItem('token', JSON.stringify(response.data.token));
+    const { id } = response.data.user;
+    navigate(`/wishlist/${id}`);
   }
 
   return (

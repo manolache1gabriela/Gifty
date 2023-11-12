@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useIsAuthenticated from '../Hooks/useIsAuthenticated';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -43,6 +44,8 @@ export default function SignIn() {
     },
   ];
 
+  const navigate = useNavigate();
+
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
@@ -57,7 +60,20 @@ export default function SignIn() {
         accept: 'application/json',
       },
     });
+    response = await response.json();
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    localStorage.setItem('token', JSON.stringify(response.data.token));
+    navigate(`/wishlist/${response.data.user.id}`);
   }
+  useEffect(() => {
+    if (
+      localStorage.getItem('token') !== null &&
+      localStorage.getItem('user') !== null
+    ) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      navigate(`/wishlist/${user.id}`);
+    }
+  }, []);
 
   return (
     <div className='w-full flex flex-col justify-center items-center py-10 min-h-[70vh] font-poppins'>
