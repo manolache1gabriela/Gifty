@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { faChevronDown, faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import EditAccount from './EditAccount';
+import { redirect, useNavigate } from 'react-router-dom';
+import useIsAuthenticated from '../Hooks/useIsAuthenticated';
 
 export default function Account() {
   const [image, setImage] = useState(false);
   const [showEditAccountModal, setShowEditAccountModal] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
 
+  console.log(user);
   function toggleEdit() {
     setShowEditAccountModal(!showEditAccountModal);
   }
+
+  useEffect(() => {
+    if (user?.avatar !== null) {
+      setImage(true);
+    }
+  }, []);
 
   return (
     <div className='w-full pt-8 flex flex-col font-poppins justify-center items-center min-h-[70vh]'>
@@ -18,34 +28,32 @@ export default function Account() {
       <div className='w-full flex flex-col md:flex-row justify-center gap-8 items-center md:items-start py-10'>
         <div className='w-40 h-40 relative rounded-full overflow-hidden border-4 border-secondary '>
           {image && (
-            <img
-              className='h-full'
-              src='./src/assets/gradient.png'
-              alt='avatar'
-            />
+            <img className='h-full' src={`${user?.avatar}`} alt='avatar' />
           )}
           {!image && (
-            <div className='absolute w-full h-full text-secondary hover:text-white bg-primary bg-opacity-30 hover:bg-opacity-90 top-0 left-0 flex items-center justify-center'>
+            <div
+              onClick={toggleEdit}
+              className='absolute w-full h-full text-secondary hover:text-white bg-primary bg-opacity-30 hover:bg-opacity-90 top-0 left-0 flex items-center justify-center'>
               <FontAwesomeIcon size='2xl' icon={faImage} />
             </div>
           )}
         </div>
-        <div className='w-[90%] md:w-fit flex flex-col items-center md:items-start justify-center gap-8'>
+        <div className='w-[90%] md:w-[40%] flex flex-col items-center md:items-start justify-center gap-8'>
           <div className='w-full flex flex-col justify-center md:justify-start gap-8 items-center'>
             <div className='w-full bg-primary bg-opacity-30 p-4 rounded-lg flex flex-col justify-center items-start gap-2 text-primary text-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] '>
               <p className='w-full flex gap-2 justify-start items-center'>
                 <span>Name:</span>
-                <span className='font-semibold'>Gabriela</span>
+                <span className='font-semibold'>{user?.name}</span>
               </p>
               <p className='w-full flex gap-2 justify-start items-center'>
                 <span>Email:</span>
-                <span className='truncate font-semibold'>
-                  manolachegabriela23@gmail.com
-                </span>
+                <span className='truncate font-semibold'>{user?.email}</span>
               </p>
               <p className='w-full flex gap-2 justify-start items-center'>
                 <span>Birthday:</span>
-                <span className='font-semibold'>19.11.2000</span>
+                <span className='font-semibold'>
+                  {user?.birth_date ? user?.birth_date : 'not provided'}
+                </span>
               </p>
               <div className='w-full mt-4 flex justify-center items-center'>
                 <button

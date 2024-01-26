@@ -12,7 +12,6 @@ interface User {
   wish: object;
 }
 export default function Wish({ isOwner, setShowEdit, wish }: User) {
-  console.log(wish);
   const [isFavorite, setIsFavorite] = useState(Boolean(wish.is_favorite));
   const [claimed, setClaimed] = useState(Boolean(wish.is_claimed));
   return (

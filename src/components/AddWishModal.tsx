@@ -106,6 +106,7 @@ export default function AddWishModal({
                         </p>
                         <form
                           className='space-y-2 w-full'
+                          id='addWish'
                           onSubmit={(event) => addWish(event)}
                           method='POST'>
                           <div className='flex flex-col items-start'>
@@ -240,30 +241,31 @@ export default function AddWishModal({
                               Favorite
                             </label>
                           </div>
-                          <div className='pt-4 flex items-center justify-center md:justify-end gap-4'>
-                            <input
-                              type='reset'
-                              value='Reset'
-                              className='mt-3 text-red-600 inline-flex w-1/2 justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-red-600 hover:text-white sm:mt-0 sm:w-auto'
-                            />
-                            <input
-                              type='submit'
-                              value='Add wish'
-                              className='mt-3 text-secondary inline-flex w-1/2 justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-green-500 hover:text-white sm:mt-0 sm:w-auto'
-                            />
-                          </div>
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
+                <div className='bg-gray-50 px-4 py-3 flex items-center  justify-between sm:px-6'>
                   <button
                     type='button'
-                    className='mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-secondary hover:text-white sm:mt-0 sm:w-auto'
+                    className='justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-primary shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-secondary hover:text-white sm:mt-0 sm:w-auto'
                     onClick={() => setShowAddWishModal(false)}>
                     Cancel
                   </button>
+                  <div className='flex items-center justify-center md:justify-end gap-4'>
+                    <input
+                      type='reset'
+                      value='Reset'
+                      className='mt-3 text-red-600 inline-flex w-1/2 justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-red-600 hover:text-white sm:mt-0 sm:w-auto'
+                    />
+                    <input
+                      type='submit'
+                      value='Add wish'
+                      form='addWish'
+                      className='mt-3 text-secondary inline-flex w-1/2 justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-green-500 hover:text-white sm:mt-0 sm:w-auto'
+                    />
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

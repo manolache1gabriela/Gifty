@@ -56,7 +56,9 @@ export default function Wishes({ isOwner, categories, wishes, owner }: Wishes) {
             id='categories'>
             {categories.length > 0 &&
               categories.map((category) => (
-                <option value={`${category.name}`}>{category.name}</option>
+                <option key={`${category.name}`} value={`${category.name}`}>
+                  {category.name}
+                </option>
               ))}
           </select>
         </form>

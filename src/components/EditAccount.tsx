@@ -15,13 +15,25 @@ export default function EditAccount({
   const month: ReactNode[] = [];
   const year: ReactNode[] = [];
   for (let i = 1; i <= 31; i++) {
-    day.push(<option value={`${i}`}>{i}</option>);
+    day.push(
+      <option key={`${i}`} value={`${i}`}>
+        {i}
+      </option>
+    );
   }
   for (let i = 1; i <= 12; i++) {
-    month.push(<option value={`${i}`}>{i}</option>);
+    month.push(
+      <option key={`${i}`} value={`${i}`}>
+        {i}
+      </option>
+    );
   }
   for (let i = 2023; i >= 1990; i--) {
-    year.push(<option value={`${i}`}>{i}</option>);
+    year.push(
+      <option key={`${i}`} value={`${i}`}>
+        {i}
+      </option>
+    );
   }
   return (
     <Transition.Root show={showEditAccountModal} as={Fragment}>

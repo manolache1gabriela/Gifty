@@ -12,27 +12,30 @@ export default function Wishlist() {
   const [owner, setOwner] = useState({});
   const userId = useParams().id;
   async function fetchWishes() {
-    let response = await fetch(
-      `http://192.168.100.33:8080/api/wishes/${userId}`,
-      {
-        headers:
-          token !== null
-            ? {
-                authorization: `Bearer ${token}`,
-              }
-            : {},
+    try {
+      let response = await fetch(
+        `http://192.168.100.33:8080/api/wishes/${userId}`,
+        {
+          headers:
+            token !== null
+              ? {
+                  authorization: `Bearer ${token}`,
+                }
+              : {},
+        }
+      );
+      response = await response.json();
+      const { categories, wishes, is_owner: isOwner, owner } = response.data;
+      setCategories(categories);
+      setIsOwner(isOwner);
+      setWishes(wishes.data);
+      setOwner(owner);
+      if (wishes.data.length > 0) {
+        const hasWishes = true;
+        setWished(hasWishes);
       }
-    );
-    response = await response.json();
-    const { categories, wishes, is_owner: isOwner, owner } = response.data;
-    console.log(wishes, response.data);
-    setCategories(categories);
-    setIsOwner(isOwner);
-    setWishes(wishes.data);
-    setOwner(owner);
-    if (wishes.data.length > 0) {
-      const hasWishes = true;
-      setWished(hasWishes);
+    } catch (error) {
+      console.log(error);
     }
   }
   useEffect(() => {

@@ -11,6 +11,7 @@ import NotFound from './NotFound';
 import Account from './Account';
 import NewPassword from './NewPassword';
 import Home from './Home';
+import useIsAuthenticated from '../Hooks/useIsAuthenticated';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -56,6 +57,19 @@ function App() {
     localStorage.removeItem('user');
     setSignedIn(false);
   }
+  const isAuth = useIsAuthenticated();
+
+  const homeRoute = (
+    <Route
+      path='/'
+      element={
+        <Home
+          toggleAnimation={toggleAnimation}
+          toggleSecondAnimation={toggleSecondAnimation}
+        />
+      }
+    />
+  );
   return (
     <Router>
       <Navbar
@@ -80,7 +94,7 @@ function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/forgot' element={<Forgot />} />
         <Route path='/registration' element={<Registration />} />
-        <Route path='/account' element={<Account />} />
+        {isAuth && <Route path='/account' element={<Account />} />}
         <Route path='/new_password' element={<NewPassword />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
