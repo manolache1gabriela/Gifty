@@ -19,18 +19,6 @@ export default function Registration() {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const navigate = useNavigate();
-  // const day: ReactNode[] = [];
-  // const month: ReactNode[] = [];
-  // const year: ReactNode[] = [];
-  // for (let i = 1; i <= 31; i++) {
-  //   day.push(<option value={`${i}`}>{i}</option>);
-  // }
-  // for (let i = 1; i <= 12; i++) {
-  //   month.push(<option value={`${i}`}>{i}</option>);
-  // }
-  // for (let i = 2023; i >= 1990; i--) {
-  //   year.push(<option value={`${i}`}>{i}</option>);
-  // }
 
   const registrationInputs: RegistrationInput[] = [
     {
@@ -86,7 +74,7 @@ export default function Registration() {
   async function register(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
-    let response = await fetch('http://192.168.100.17:8080/api/register', {
+    let response = await fetch('http://192.168.100.33:8080/api/register', {
       method: 'POST',
       body: JSON.stringify({
         name: name,
@@ -115,7 +103,6 @@ export default function Registration() {
       </div>
       <form
         className='space-y-6 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4'
-        action='#'
         onSubmit={(event) => register(event)}
         method='POST'>
         {registrationInputs.map((input) => (

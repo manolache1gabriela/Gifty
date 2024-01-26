@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import Hero from './Hero';
 import Menu from './Menu';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import More from './More';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Wishlist from './Wishlist';
 import SignIn from './SignIn';
@@ -12,6 +10,7 @@ import Registration from './Registration';
 import NotFound from './NotFound';
 import Account from './Account';
 import NewPassword from './NewPassword';
+import Home from './Home';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -30,8 +29,7 @@ function App() {
       userLength !== undefined &&
       userLength > 0
     ) {
-      const setter = true;
-      setSignedIn(setter);
+      setSignedIn(true);
     }
   }
 
@@ -72,10 +70,10 @@ function App() {
         <Route
           path='/'
           element={
-            <div className='w-full relative h-[84vh] xl:h-[88.4vh] bg-[url("./assets/splash.jpg")] bg-cover flex'>
-              <Hero toggleAnimation={toggleAnimation} />
-              <More toggleSecondAnimation={toggleSecondAnimation} />
-            </div>
+            <Home
+              toggleAnimation={toggleAnimation}
+              toggleSecondAnimation={toggleSecondAnimation}
+            />
           }
         />
         <Route path='/wishlist/:id' element={<Wishlist />} />

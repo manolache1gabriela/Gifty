@@ -45,11 +45,10 @@ export default function SignIn() {
   ];
 
   const navigate = useNavigate();
-
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
-    let response = await fetch('http://192.168.100.17:8080/api/login', {
+    let response = await fetch('http://192.168.100.33:8080/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email: email,
@@ -62,14 +61,14 @@ export default function SignIn() {
     });
     response = await response.json();
     localStorage.setItem('user', JSON.stringify(response.data.user));
-    localStorage.setItem('token', JSON.stringify(response.data.token));
+    localStorage.setItem('token', response.data.token);
     navigate(`/wishlist/${response.data.user.id}`);
+    window.location.reload();
   }
+
+  const isAuth = useIsAuthenticated();
   useEffect(() => {
-    if (
-      localStorage.getItem('token') !== null &&
-      localStorage.getItem('user') !== null
-    ) {
+    if (isAuth) {
       const user = JSON.parse(localStorage.getItem('user'));
       navigate(`/wishlist/${user.id}`);
     }

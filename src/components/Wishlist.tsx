@@ -4,9 +4,6 @@ import Wishes from './Wishes';
 import { useParams } from 'react-router-dom';
 export default function Wishlist() {
   const [wished, setWished] = useState(false);
-  function toggleWished() {
-    setWished(!wished);
-  }
 
   const token = localStorage.getItem('token');
   const [isOwner, setIsOwner] = useState(false);
@@ -16,7 +13,7 @@ export default function Wishlist() {
   const userId = useParams().id;
   async function fetchWishes() {
     let response = await fetch(
-      `http://192.168.100.17:8080/api/wishes/${userId}`,
+      `http://192.168.100.33:8080/api/wishes/${userId}`,
       {
         headers:
           token !== null
@@ -28,9 +25,10 @@ export default function Wishlist() {
     );
     response = await response.json();
     const { categories, wishes, is_owner: isOwner, owner } = response.data;
+    console.log(wishes, response.data);
     setCategories(categories);
     setIsOwner(isOwner);
-    setWishes(wishes);
+    setWishes(wishes.data);
     setOwner(owner);
     if (wishes.data.length > 0) {
       const hasWishes = true;
@@ -43,7 +41,7 @@ export default function Wishlist() {
 
   return (
     <div className='w-full flex justify-center items-center py-10 min-h-[70vh]'>
-      {!wished && <NoWish toggleWished={toggleWished} />}
+      {!wished && <NoWish />}
       {wished && (
         <Wishes
           wishes={wishes}
