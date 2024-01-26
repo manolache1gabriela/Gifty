@@ -7,6 +7,7 @@ import useToken from '../Hooks/useToken';
 interface AddWishModal {
   showAddWishModal: boolean;
   setShowAddWishModal: (() => boolean) | Dispatch<SetStateAction<boolean>>;
+  fetchWishes: () => void;
 }
 
 export interface Categories {
@@ -17,6 +18,7 @@ export interface Categories {
 export default function AddWishModal({
   showAddWishModal,
   setShowAddWishModal,
+  fetchWishes,
 }: AddWishModal) {
   const [prodName, setProdName] = useState('');
   const [price, setPrice] = useState(50);
@@ -31,37 +33,31 @@ export default function AddWishModal({
     { value: 'AZ', label: 'Arizona' },
     { value: 'AR', label: 'Arkansas' },
   ];
+
   const [prodCategories, setProdCategories] = useState([]);
   const token = useToken();
   async function addWish(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
     const user = JSON.parse(localStorage.getItem('user'));
+    const formData = new FormData(e.target);
+    formData.append('is_favorite', favorite);
     let response = await fetch(
       `http://192.168.100.33:8080/api/wishes/${user.id}/add`,
       {
         method: 'POST',
-        body: JSON.stringify({
-          name: prodName,
-          is_favorite: favorite,
-          quantity: quantity,
-          price: price,
-          link: link,
-          image: prodImg,
-          categories: prodCategories,
-        }),
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
           accept: 'application/json',
           authorization: `Bearer ` + token,
         },
       }
     );
     response = await response.json();
-    navigate(0);
+    setShowAddWishModal(!AddWishModal);
+    fetchWishes();
   }
 
-  const navigate = useNavigate();
   const animatedComponents = makeAnimated();
 
   return (
@@ -118,7 +114,7 @@ export default function AddWishModal({
                             <div className='w-full'>
                               <input
                                 id='product-name'
-                                name='product-name'
+                                name='name'
                                 type='text'
                                 onInput={(e) => {
                                   setProdName(e.target.value);
@@ -140,7 +136,8 @@ export default function AddWishModal({
                                   id='price'
                                   name='price'
                                   type='number'
-                                  min={0}
+                                  min={1}
+                                  defaultValue={50}
                                   onInput={(e) => {
                                     setPrice(e.target.value);
                                   }}
@@ -163,7 +160,8 @@ export default function AddWishModal({
                                   onInput={(e) => {
                                     setQuantity(e.target.value);
                                   }}
-                                  min={0}
+                                  min={1}
+                                  defaultValue={1}
                                   placeholder='1'
                                   className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                                 />
@@ -228,7 +226,6 @@ export default function AddWishModal({
                           <div className='pt-2 flex items-center gap-2'>
                             <input
                               id='favorite'
-                              name='favorite'
                               type='checkbox'
                               onChange={(e) => {
                                 setFavorite(!favorite);
@@ -254,11 +251,6 @@ export default function AddWishModal({
                     Cancel
                   </button>
                   <div className='flex items-center justify-center md:justify-end gap-4'>
-                    <input
-                      type='reset'
-                      value='Reset'
-                      className='mt-3 text-red-600 inline-flex w-1/2 justify-center rounded-md bg-red-100 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-primary hover:ring-0 hover:bg-red-600 hover:text-white sm:mt-0 sm:w-auto'
-                    />
                     <input
                       type='submit'
                       value='Add wish'

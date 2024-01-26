@@ -11,6 +11,7 @@ export default function EditAccount({
   showEditAccountModal,
   setShowEditAccountModal,
 }: EditAccountModal) {
+  const user = JSON.parse(localStorage.getItem('user'));
   const day: ReactNode[] = [];
   const month: ReactNode[] = [];
   const year: ReactNode[] = [];
@@ -77,7 +78,7 @@ export default function EditAccount({
                             id='change-name'
                             name='change-name'
                             type='text'
-                            // defaultValue={`${accountName}`}
+                            defaultValue={`${user.name}`}
                             className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                           />
                         </div>
@@ -93,7 +94,7 @@ export default function EditAccount({
                             id='change-email'
                             name='change-email'
                             type='email'
-                            // defaultValue={`${accountEmail}`}
+                            defaultValue={`${user.email}`}
                             className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                           />
                         </div>
@@ -141,7 +142,6 @@ export default function EditAccount({
                             id='change-photo'
                             name='change-photo'
                             type='file'
-                            // defaultValue={`${accountEmail}`}
                             className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                           />
                         </div>

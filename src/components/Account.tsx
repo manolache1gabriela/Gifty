@@ -24,7 +24,7 @@ export default function Account() {
 
   return (
     <div className='w-full pt-8 flex flex-col font-poppins justify-center items-center min-h-[70vh]'>
-      <h3 className='text-3xl lg:text-4xl text-primary'>Hello, Gabriela!</h3>
+      <h3 className='text-3xl lg:text-4xl text-primary'>Hello, {user.name}!</h3>
       <div className='w-full flex flex-col md:flex-row justify-center gap-8 items-center md:items-start py-10'>
         <div className='w-40 h-40 relative rounded-full overflow-hidden border-4 border-secondary '>
           {image && (

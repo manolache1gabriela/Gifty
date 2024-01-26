@@ -9,10 +9,17 @@ interface Wishes {
   wishes: [];
   isOwner: boolean;
   categories: [];
-  owner: object;
+  wishlistOwner: object;
+  fetchWishes: () => void;
 }
 
-export default function Wishes({ isOwner, categories, wishes, owner }: Wishes) {
+export default function Wishes({
+  isOwner,
+  categories,
+  wishes,
+  wishlistOwner,
+  fetchWishes,
+}: Wishes) {
   const [showAddWishModal, setShowAddWishModal] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
@@ -26,7 +33,7 @@ export default function Wishes({ isOwner, categories, wishes, owner }: Wishes) {
           />
           <p className='text-primary text-center text-xl md:text-3xl'>
             <span className='text-secondary hidden md:inline'>
-              {owner.name}
+              {wishlistOwner.name}
             </span>{' '}
             wishes:
           </p>
@@ -43,6 +50,7 @@ export default function Wishes({ isOwner, categories, wishes, owner }: Wishes) {
             <AddWishModal
               showAddWishModal={showAddWishModal}
               setShowAddWishModal={setShowAddWishModal}
+              fetchWishes={fetchWishes}
             />
           </div>
         )}

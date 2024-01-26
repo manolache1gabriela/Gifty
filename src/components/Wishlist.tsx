@@ -7,9 +7,9 @@ export default function Wishlist() {
 
   const token = localStorage.getItem('token');
   const [isOwner, setIsOwner] = useState(false);
-  const [wishes, setWishes] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [owner, setOwner] = useState({});
+  const [wishes, setWishes] = useState([]);
+  const [wishlistCategories, setWishlistCategories] = useState([]);
+  const [wishlistOwner, setWishlistOwner] = useState({});
   const userId = useParams().id;
   async function fetchWishes() {
     try {
@@ -26,10 +26,10 @@ export default function Wishlist() {
       );
       response = await response.json();
       const { categories, wishes, is_owner: isOwner, owner } = response.data;
-      setCategories(categories);
+      setWishlistCategories(categories);
       setIsOwner(isOwner);
       setWishes(wishes.data);
-      setOwner(owner);
+      setWishlistOwner(owner);
       if (wishes.data.length > 0) {
         const hasWishes = true;
         setWished(hasWishes);
@@ -44,13 +44,14 @@ export default function Wishlist() {
 
   return (
     <div className='w-full flex justify-center items-center py-10 min-h-[70vh]'>
-      {!wished && <NoWish />}
+      {!wished && <NoWish fetchWishes={fetchWishes} />}
       {wished && (
         <Wishes
           wishes={wishes}
           isOwner={isOwner}
-          categories={categories}
-          owner={owner}
+          categories={wishlistCategories}
+          wishlistOwner={wishlistOwner}
+          fetchWishes={fetchWishes}
         />
       )}
     </div>
