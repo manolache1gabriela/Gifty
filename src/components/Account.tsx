@@ -25,7 +25,7 @@ export default function Account() {
   return (
     <div className='w-full pt-8 flex flex-col font-poppins justify-center items-center min-h-[70vh]'>
       <h3 className='text-3xl lg:text-4xl text-primary'>Hello, {user.name}!</h3>
-      <div className='w-full flex flex-col md:flex-row justify-center gap-8 items-center md:items-start py-10'>
+      <div className='w-full flex flex-col md:flex-row justify-center gap-8 items-center py-10'>
         <div className='w-40 h-40 relative rounded-full overflow-hidden border-4 border-secondary '>
           {image && (
             <img className='h-full' src={`${user?.avatar}`} alt='avatar' />
@@ -64,7 +64,7 @@ export default function Account() {
               </div>
             </div>
           </div>
-          <div className='w-full flex flex-col text-white bg-secondary p-4 gap-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] justify-center items-center'>
+          {/* <div className='w-full flex flex-col text-white bg-secondary p-4 gap-4 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] justify-center items-center'>
             <h4 className='text-2xl font-semibold'>Friends:</h4>
             <div className='w-full flex flex-col justify-center items-center gap-2'>
               <ul className='w-full max-h-32 lg:max-h-48 overflow-y-scroll no-scrollbar flex flex-col gap-4'>
@@ -116,7 +116,7 @@ export default function Account() {
               </ul>
               <FontAwesomeIcon icon={faChevronDown} />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <EditAccount
