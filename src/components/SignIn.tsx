@@ -48,7 +48,7 @@ export default function SignIn() {
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
-    let response = await fetch('http://192.168.100.33:8080/api/login', {
+    const response = await fetch('http://192.168.100.33:8080/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email: email,
@@ -59,10 +59,10 @@ export default function SignIn() {
         accept: 'application/json',
       },
     });
-    response = await response.json();
+    const result = await response.json();
     console.log(response);
-    localStorage.setItem('user', JSON.stringify(response.data.user));
-    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('user', JSON.stringify(result.data.user));
+    localStorage.setItem('token', result.data.token);
     // navigate(`/wishlist/${response.data.user.id}`);
     // window.location.reload();
   }
@@ -70,9 +70,10 @@ export default function SignIn() {
   const isAuth = useIsAuthenticated();
   useEffect(() => {
     if (isAuth) {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem('user') || '');
       navigate(`/wishlist/${user.id}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

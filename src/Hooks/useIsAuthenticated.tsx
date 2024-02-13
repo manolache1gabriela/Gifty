@@ -7,6 +7,7 @@ export default function useIsAuthenticated() {
     localStorage.getItem('user') !== null;
   useEffect(() => {
     setIsAuth(setter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return isAuth;
