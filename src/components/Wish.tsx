@@ -9,10 +9,19 @@ import { Dispatch, SetStateAction, useState } from 'react';
 interface User {
   isOwner: boolean;
   setShowEdit: (() => boolean) | Dispatch<SetStateAction<boolean>>;
-  wish: object;
+  wish: {
+    image: string;
+    name: string;
+    link: string;
+    price: number;
+    claimer: { avatar: string };
+    quantity: number;
+    is_favorite: boolean;
+    is_claimed: boolean;
+  };
 }
 export default function Wish({ isOwner, setShowEdit, wish }: User) {
-  const [isFavorite, setIsFavorite] = useState(Boolean(wish.is_favorite));
+  const [isFavorite] = useState(Boolean(wish.is_favorite));
   const [claimed, setClaimed] = useState(Boolean(wish.is_claimed));
   return (
     <div
@@ -53,7 +62,7 @@ export default function Wish({ isOwner, setShowEdit, wish }: User) {
           <div
             className='w-10 h-10  rounded-full border-2 border-primary bg-cover bg-center'
             style={{
-              backgroundImage: `url("${wish.claimer?.avatar}")`,
+              backgroundImage: `url("${wish.claimer.avatar}")`,
             }}
           />
         )}

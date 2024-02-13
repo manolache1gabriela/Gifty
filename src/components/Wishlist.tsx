@@ -7,7 +7,33 @@ import { Skeleton, Stack } from '@mui/material';
 export default function Wishlist() {
   const token = localStorage.getItem('token');
   const [isOwner, setIsOwner] = useState(false);
-  const [wishes, setWishes] = useState<[{ id: number }]>([{ id: 0 }]);
+  const [wishes, setWishes] = useState<
+    [
+      {
+        id: number;
+        image: string;
+        name: string;
+        link: string;
+        price: number;
+        claimer: { avatar: string };
+        quantity: number;
+        is_favorite: boolean;
+        is_claimed: boolean;
+      }
+    ]
+  >([
+    {
+      id: 0,
+      image: 'string',
+      name: 'string',
+      link: 'string',
+      price: 0,
+      claimer: { avatar: 'string' },
+      quantity: 0,
+      is_favorite: false,
+      is_claimed: false,
+    },
+  ]);
   const [pageLinks, setPageLinks] = useState([]);
   const [wishlistCategories, setWishlistCategories] = useState<
     [{ name: string }]

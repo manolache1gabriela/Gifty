@@ -6,7 +6,19 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import EditWish from './EditWish';
 
 interface Wishes {
-  wishes: [{ id: number }];
+  wishes: [
+    {
+      id: number;
+      image: string;
+      name: string;
+      link: string;
+      price: number;
+      claimer: { avatar: string };
+      quantity: number;
+      is_favorite: boolean;
+      is_claimed: boolean;
+    }
+  ];
   isOwner: boolean;
   categories: [{ name: string }];
   wishlistOwner: { name: string };

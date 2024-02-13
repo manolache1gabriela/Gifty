@@ -74,7 +74,7 @@ export default function Registration() {
   async function register(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
-    let response = await fetch('http://192.168.100.33:8080/api/register', {
+    const response = await fetch('http://192.168.100.33:8080/api/register', {
       method: 'POST',
       body: JSON.stringify({
         name: name,
@@ -87,10 +87,10 @@ export default function Registration() {
         accept: 'application/json',
       },
     });
-    response = await response.json();
-    localStorage.setItem('user', JSON.stringify(response.data.user));
-    localStorage.setItem('token', JSON.stringify(response.data.token));
-    const { id } = response.data.user;
+    const result = await response.json();
+    localStorage.setItem('user', JSON.stringify(result.data.user));
+    localStorage.setItem('token', JSON.stringify(result.data.token));
+    const { id } = result.data.user;
     navigate(`/wishlist/${id}`);
   }
 

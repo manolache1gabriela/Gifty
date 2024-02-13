@@ -2,7 +2,6 @@ import { Fragment, Dispatch, SetStateAction, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { useNavigate } from 'react-router-dom';
 import useToken from '../Hooks/useToken';
 interface AddWishModal {
   showAddWishModal: boolean;
@@ -21,10 +20,10 @@ export default function AddWishModal({
   fetchWishes,
 }: AddWishModal) {
   const [prodName, setProdName] = useState('');
-  const [price, setPrice] = useState(50);
-  const [quantity, setQuantity] = useState(1);
-  const [prodImg, setProdImg] = useState<File>();
-  const [favorite, setFavorite] = useState(false);
+  const [price, setPrice] = useState<number>(50);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [prodImg, setProdImg] = useState<File | null>(null);
+  const [favorite, setFavorite] = useState<boolean>(false);
   const [link, setLink] = useState('');
   const defaultCategories: Categories[] = [
     { value: 'AL', label: 'Alabama' },
@@ -34,15 +33,15 @@ export default function AddWishModal({
     { value: 'AR', label: 'Arkansas' },
   ];
 
-  const [prodCategories, setProdCategories] = useState([]);
+  const [prodCategories, setProdCategories] = useState(defaultCategories);
   const token = useToken();
   async function addWish(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
-    const user = JSON.parse(localStorage.getItem('user'));
-    const formData = new FormData(e.target);
-    formData.append('is_favorite', favorite);
-    let response = await fetch(
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const formData = new FormData(e.currentTarget);
+    formData.append('is_favorite', favorite.toString());
+    const response = await fetch(
       `http://192.168.100.33:8080/api/wishes/${user.id}/add`,
       {
         method: 'POST',
@@ -53,7 +52,8 @@ export default function AddWishModal({
         },
       }
     );
-    response = await response.json();
+    const result = await response.json();
+    console.log(result);
     setShowAddWishModal(!AddWishModal);
     fetchWishes();
   }
@@ -116,8 +116,9 @@ export default function AddWishModal({
                                 id='product-name'
                                 name='name'
                                 type='text'
+                                placeholder={`${prodName}`}
                                 onInput={(e) => {
-                                  setProdName(e.target.value);
+                                  setProdName(e.currentTarget.value);
                                 }}
                                 required
                                 className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
@@ -137,9 +138,9 @@ export default function AddWishModal({
                                   name='price'
                                   type='number'
                                   min={1}
-                                  defaultValue={50}
+                                  defaultValue={`${price}`}
                                   onInput={(e) => {
-                                    setPrice(e.target.value);
+                                    setPrice(parseFloat(e.currentTarget.value));
                                   }}
                                   placeholder='50'
                                   className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
@@ -158,10 +159,12 @@ export default function AddWishModal({
                                   name='quantity'
                                   type='number'
                                   onInput={(e) => {
-                                    setQuantity(e.target.value);
+                                    setQuantity(
+                                      parseFloat(e.currentTarget.value)
+                                    );
                                   }}
                                   min={1}
-                                  defaultValue={1}
+                                  defaultValue={`${quantity}`}
                                   placeholder='1'
                                   className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                                 />
@@ -179,8 +182,11 @@ export default function AddWishModal({
                                 id='image'
                                 name='image'
                                 type='file'
+                                defaultValue={`${prodImg}`}
                                 onInput={(e) => {
-                                  setProdImg(e.target.files);
+                                  setProdImg(
+                                    e.currentTarget.files?.[0] || null
+                                  );
                                 }}
                                 accept='image/png, image/jpeg'
                                 className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
@@ -198,8 +204,9 @@ export default function AddWishModal({
                                 type='text'
                                 id='link'
                                 name='link'
+                                placeholder={`${link}`}
                                 onInput={(e) => {
-                                  setLink(e.target.value);
+                                  setLink(e.currentTarget.value);
                                 }}
                                 className='px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6'
                               />
@@ -214,12 +221,19 @@ export default function AddWishModal({
                             <Select
                               closeMenuOnSelect={false}
                               components={animatedComponents}
-                              defaultValue={[defaultCategories[0]]}
+                              defaultValue={prodCategories}
                               isMulti
                               className='w-full'
                               options={defaultCategories}
-                              onInput={(e) => {
-                                setProdCategories(e.target.value);
+                              onChange={(selection) => {
+                                const categories: Categories[] = [];
+                                for (const val in selection.values) {
+                                  categories.push({
+                                    value: val,
+                                    label: 'label',
+                                  });
+                                }
+                                setProdCategories(categories);
                               }}
                             />
                           </div>
@@ -227,7 +241,8 @@ export default function AddWishModal({
                             <input
                               id='favorite'
                               type='checkbox'
-                              onChange={(e) => {
+                              defaultChecked={favorite}
+                              onChange={() => {
                                 setFavorite(!favorite);
                               }}
                               className='checkbox-round'

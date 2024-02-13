@@ -59,17 +59,17 @@ function App() {
   }
   const isAuth = useIsAuthenticated();
 
-  const homeRoute = (
-    <Route
-      path='/'
-      element={
-        <Home
-          toggleAnimation={toggleAnimation}
-          toggleSecondAnimation={toggleSecondAnimation}
-        />
-      }
-    />
-  );
+  // const homeRoute = (
+  //   <Route
+  //     path='/'
+  //     element={
+  //       <Home
+  //         toggleAnimation={toggleAnimation}
+  //         toggleSecondAnimation={toggleSecondAnimation}
+  //       />
+  //     }
+  //   />
+  // );
   return (
     <Router>
       <Navbar

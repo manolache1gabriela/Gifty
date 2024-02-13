@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
-import { faChevronDown, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+// import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import EditAccount from './EditAccount';
-import { redirect, useNavigate } from 'react-router-dom';
-import useIsAuthenticated from '../Hooks/useIsAuthenticated';
 
 export default function Account() {
   const [image, setImage] = useState(false);
   const [showEditAccountModal, setShowEditAccountModal] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  console.log(user);
+  // console.log(user);
   function toggleEdit() {
     setShowEditAccountModal(!showEditAccountModal);
   }
@@ -20,6 +18,7 @@ export default function Account() {
     if (user?.avatar !== null) {
       setImage(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
