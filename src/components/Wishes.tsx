@@ -6,10 +6,10 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import EditWish from './EditWish';
 
 interface Wishes {
-  wishes: [];
+  wishes: [{ id: number }];
   isOwner: boolean;
-  categories: [];
-  wishlistOwner: object;
+  categories: [{ name: string }];
+  wishlistOwner: { name: string };
   fetchWishes: () => void;
 }
 

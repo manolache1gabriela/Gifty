@@ -5,18 +5,18 @@ import { useParams } from 'react-router-dom';
 import PaginationWishes from './PaginationWishes';
 import { Skeleton, Stack } from '@mui/material';
 export default function Wishlist() {
-  const [wished, setWished] = useState(false);
-
   const token = localStorage.getItem('token');
   const [isOwner, setIsOwner] = useState(false);
-  const [wishes, setWishes] = useState([]);
+  const [wishes, setWishes] = useState<[{ id: number }]>([{ id: 0 }]);
   const [pageLinks, setPageLinks] = useState([]);
-  const [wishlistCategories, setWishlistCategories] = useState([]);
-  const [wishlistOwner, setWishlistOwner] = useState({});
+  const [wishlistCategories, setWishlistCategories] = useState<
+    [{ name: string }]
+  >([{ name: 'all' }]);
+  const [wishlistOwner, setWishlistOwner] = useState({ name: 'Andrei' });
   const [pageNumber, setPageNumber] = useState(1);
   const userId = useParams().id;
   async function fetchWishes() {
-    let response = await fetch(
+    const response = await fetch(
       `http://192.168.100.33:8080/api/wishes/${userId}?page=${pageNumber}`,
       {
         headers:
@@ -27,31 +27,28 @@ export default function Wishlist() {
             : {},
       }
     );
-    response = await response.json();
-    const { categories, wishes, is_owner: isOwner, owner } = response.data;
+    const result = await response.json();
+    const { categories, wishes, is_owner: isOwner, owner } = result.data;
     setWishlistCategories(categories);
     setIsOwner(isOwner);
     setPageLinks(wishes.links);
     setWishes(wishes.data);
     setWishlistOwner(owner);
-    if (wishes.data.length > 0) {
-      const hasWishes = true;
-      setWished(hasWishes);
-    }
   }
   useEffect(() => {
     fetchWishes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
 
   function getWish(index: number) {
-    const object = pageLinks[index];
-    if (object.url === null) {
+    const objectPage: { url: string } = pageLinks[index];
+    if (objectPage.url === null) {
       return 1;
     }
-    const url = new URL(object.url ?? '');
+    const url = new URL(objectPage.url ?? '');
 
     const page = url.searchParams.get('page');
-    setPageNumber(page);
+    setPageNumber(Number(page));
   }
 
   return (
