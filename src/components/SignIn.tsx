@@ -60,10 +60,11 @@ export default function SignIn() {
       },
     });
     response = await response.json();
+    console.log(response);
     localStorage.setItem('user', JSON.stringify(response.data.user));
     localStorage.setItem('token', response.data.token);
-    navigate(`/wishlist/${response.data.user.id}`);
-    window.location.reload();
+    // navigate(`/wishlist/${response.data.user.id}`);
+    // window.location.reload();
   }
 
   const isAuth = useIsAuthenticated();
